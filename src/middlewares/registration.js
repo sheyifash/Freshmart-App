@@ -1,18 +1,21 @@
-const findUser = require("../services/findUser")
+console.log("inside controller")
+//const {findUser, validateUser} = require("../services/findUser")
+const Auth = require("../models/Authmodel")
 
 const validateRegistration = async(req, res, next) => {
+    console.log("user saved")
     try {
+        console.log("user saved")
     const {firstName, lastName, email, mobileNumber, otherMobile, location, password, role } = req.body
+    const existingUser = await Auth.findOne({email})
+        if (existingUser) {
+            console.log("okay")
+            return res.status(500).json("user already exists!")
+        }
     const errors = []
-    if (!email) {
-        return errors.push("enter a valid email")
-    }
-    if (!mobileNumber) {
-        return errors.push("enter a valid mobile number")
-    }
-    if (!role) {
-        return errors.push("enter a valid role")
-    }
+    if (!email) errors.push("enter a valid email")
+    if (!mobileNumber) errors.push("enter a valid mobile number")
+    if (!role) errors.push("enter a valid role")
     const validPassword = (password) => {
         const hasUpperCase = /[A-Z]/.test(password)
         const hasLowerCase = /[a-z]/.test(password)
@@ -26,19 +29,16 @@ const validateRegistration = async(req, res, next) => {
 
         return null
     }
-    const validatedPassword = validPassword(password)
-    if (!validatedPassword) {
-        return errors.push("enter a valid password!")
+    const passwordError = validPassword(password);
+    if (passwordError) {
+      errors.push(passwordError);
     }
     if (errors.length > 0)
         return res.status(400).json({message:errors})
-    const existingUser = await findUser()
-        if (existingUser) {
-            return res.status(500).json("user already exists!")
-        }
+    
         next()
     } catch (error) {
         res.status(500).json({error:error.message})
     }
 }
-module.exports = {validateRegistration}
+module.exports = validateRegistration

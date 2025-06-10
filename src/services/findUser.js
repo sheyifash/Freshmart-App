@@ -1,17 +1,30 @@
 const Auth = require("../models/Authmodel")
-
-const findUser = async(rea, res) => {
-    const {firstName, lastName, email, mobileNumber, otherMobile, location, password, role } = req.body
+console.log("wahala")
+/*const findUser = async(req, res, next) => {
+    try {
+    const { email } = req.body
     const existing = await Auth.findOne({email})
-    return existing
+    if (existing) {
+        console.log("fine")
+       res.status(200).json(existing) 
+    }
+    next()
+
+    } catch (error) {
+        res.status(200).json({error:error.message}) 
+    }}*/
+
+const validateUser = async(req, res, next) => {
+    const {email} = req.body
+    const user = await Auth.findOne({email})
+    if (user) {
+         console.log("fine")
+       return res.status(200).json(user) 
+    }
+    next()
 }
 
-const validateUser = async(req, res) => {
-    const {email, password} = req.body
-    const user = await Auth.findOne({email})
-    return user
-}
 module.exports = {
-    findUser,
+    //findUser
     validateUser
 }

@@ -12,4 +12,4 @@ const updateProducts = async(req, res) => {
        res.status(500).json({error:error.message}) 
     }
 }
-module.exports = {updateProducts}
+module.exports = updateProducts

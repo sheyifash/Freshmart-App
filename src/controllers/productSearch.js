@@ -2,10 +2,12 @@ const Product = require("../models/Productmodel")
 
 const searchProduct = async(req, res) => {
     try {
-        const { _Id} = req.params
-    const getProduct = await Product.findById({_Id})
+        const { _id} = req.params
+        //const productId = req.params._id
+    const getProduct = await Product.findById(_id)
+    console.log(getProduct)
     if (!getProduct) {
-        res.status(402).json("Not found")
+       return res.status(402).json("Not found")
     }
     res.status(200).json(getProduct)
     
@@ -13,4 +15,4 @@ const searchProduct = async(req, res) => {
         res.status(500).json({error:error.message})
     }
 }
-module.exports = {searchProduct}
+module.exports = searchProduct

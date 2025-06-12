@@ -9,14 +9,14 @@ const authorization = async(req, res, next) => {
     const realToken = spliToken[1]
     const decodeToken = jwt.verify(realToken, `${process.env.ACCESS_TOKEN}`)
     if (!decodeToken) {
-        res.status(401).json("plesae sign in!")
+       return res.status(401).json("plesae sign in!")
     }
-    const user = await Auth.findById(decodeToken.Id)
+    const user = await Auth.findById({_id:decodeToken._id})
     if (!user) {
-        res.status(400).json("user does not exist!")
+       return res.status(400).json("user does not exist!")
     }
     console.log({token})
     req.user = user
     next()
 }
-module.exports = {authorization}
+module.exports = authorization

@@ -3,8 +3,8 @@ const Product = require("../models/Productmodel")
 
 const viewOrders = async (req, res) => {
     try {
-    const {_Id} = req.params
-    const getOrders = await Order.findById({_Id})
+    const {_id} = req.params
+    const getOrders = await Order.findById(_id)
     .populate (Product.products)
     .sort ({createdAt: -1})
     if (!getOrders) {
@@ -15,4 +15,4 @@ const viewOrders = async (req, res) => {
         res.status(500).json({error:error.message})
     }
 }
-module.exports = {viewOrders}
+module.exports = viewOrders

@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt")
 const Auth = require("../models/Authmodel")
-console.log("this is fine")
 const register = async(req, res) => {
     try {
 const{firstName, lastName, email, mobileNumber, otherMobile, location, password, role } = req.body

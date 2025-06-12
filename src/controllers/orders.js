@@ -9,10 +9,10 @@ const order = async(req, res) =>{
         },0)
         const shippingFee = (states) => {
             const rate = {
-            Lagos_Island:1500,
-            Lagos_Mainland:1000,
-            Ibadan:2000,
-            Oyo:2500,
+            lagos_island:1500,
+            lagos_mainland:1000,
+            ibadan:2000,
+            oyo:2500,
             default:3000
             }
             return rate[states.toLowerCase()] || states.rate
@@ -33,7 +33,7 @@ const order = async(req, res) =>{
             newOrder
         })
     } catch (error) {
-        res.status(500).json({error:message.error})
+        res.status(500).json({error:error.message})
     }
 }
-module.exports = {order}
+module.exports = order

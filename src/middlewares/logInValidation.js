@@ -25,10 +25,10 @@ const validatelogIn = async(req, res, next) => {
              process.env.REFRESH_TOKEN,
              {expiresIn:"30m"}
           )
-             res.status(200).json({message:"login success!",
+            /* res.status(200).json({message:"login success!",
                  user:email,
                  accessToken,
-                 refreshToken,})
+                 refreshToken,})*/
      next()
 }
 module.exports = validatelogIn

@@ -14,6 +14,7 @@ app.use("/api/logIn", authRoutes)
 app.use("/api/update", productRoutes)
 app.use("/api", browserRoutes)
 app.use("/api", createOrder)
+app.use("/api", authRoutes)
 const PORT = process.env.PORT || 3000
 mongoose.connect(process.env.MONGODB_URL)
 .then( () => {

@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv")
 dotenv.config()
 const Auth = require("../models/Authmodel")
+const { default: bcrypt } = require("bcryptjs")
 const adminAuth = async(req, res, next) => {
     const token = req.header("Authorization")
     if (!token) {
